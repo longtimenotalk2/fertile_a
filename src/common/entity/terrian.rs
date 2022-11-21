@@ -1,7 +1,5 @@
-use crate::common::reason::Reason;
-use crate::constant::*;
-
-
+use super::Terrian;
+use crate::common::{reason::Reason, constant::*};
 
 impl Terrian {
     pub fn str(&self) -> String {

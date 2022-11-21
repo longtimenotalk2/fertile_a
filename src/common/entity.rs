@@ -1,4 +1,8 @@
-
+mod terrian;
+mod placement;
+mod natural;
+mod manmade;
+mod resource;
 
 #[derive(Clone)]
 pub enum Resource {
