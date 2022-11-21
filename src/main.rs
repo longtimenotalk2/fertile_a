@@ -1,6 +1,5 @@
 pub mod game;
-pub mod reason;
-pub mod constant;
+pub mod common;
 
 fn main() {
     println!("Hello, world!");

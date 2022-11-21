@@ -1,10 +1,7 @@
 use super::Map;
 use super::tile::Tile;
 use super::pos::Pos;
-use super::tile::terrian::Terrian;
-use super::tile::placement::Placement;
-use super::tile::placement::natural::Natural;
-use super::tile::placement::manmade::Manmade;
+use crate::common::entity::{Terrian, Placement, Natural, Manmade};
 
 impl Map {
     pub fn new(n_row: i64, n_col: i64) -> Self {

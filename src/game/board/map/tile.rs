@@ -1,10 +1,4 @@
-pub mod resource;
-pub mod terrian;
-pub mod placement;
-
-use resource::Resource;
-use terrian::Terrian;
-use placement::Placement;
+use crate::common::entity::{Resource, Terrian, Placement};
 
 
 #[derive(Clone)]

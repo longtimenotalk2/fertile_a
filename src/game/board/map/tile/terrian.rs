@@ -1,12 +1,7 @@
-use crate::reason::Reason;
+use crate::common::reason::Reason;
 use crate::constant::*;
 
-#[derive(Clone)]
-pub enum Terrian {
-    Plain,
-    Sea,
-    Hill,
-}
+
 
 impl Terrian {
     pub fn str(&self) -> String {

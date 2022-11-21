@@ -1,5 +1,5 @@
-use crate::constant::*;
-use crate::reason::Reason;
+use crate::common::constant::*;
+use crate::common::reason::Reason;
 
 #[derive(Clone)]
 pub enum Resource {
