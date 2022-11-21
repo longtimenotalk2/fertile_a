@@ -1,8 +1,4 @@
-#[derive(Clone, Eq, PartialEq, Hash, Debug)]
-pub struct Pos {
-    r: i64,
-    c: i64,
-}
+use super::Pos;
 
 impl Pos {
     pub fn new(r: i64, c: i64) -> Self {

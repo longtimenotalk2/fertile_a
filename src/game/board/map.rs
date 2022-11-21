@@ -1,5 +1,4 @@
 pub mod tile;
-pub mod pos;
 
 mod map_basic;
 mod map_new;

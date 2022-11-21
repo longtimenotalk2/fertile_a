@@ -1,6 +1,6 @@
 use super::Map;
 use super::tile::Tile;
-use super::pos::Pos;
+use crate::common::incorporeal::Pos;
 
 
 impl Map {

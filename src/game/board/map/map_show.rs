@@ -1,5 +1,5 @@
 use super::Map;
-use super::pos::Pos;
+use crate::common::incorporeal::Pos;
 
 // https://fuhao.xiao84.com/86855.html
 // https://crates.io/crates/colorful
