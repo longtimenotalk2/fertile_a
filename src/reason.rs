@@ -1,4 +1,4 @@
-use crate::game::board::map::tile::entity::Terrian;
+use crate::game::board::map::tile::terrian::Terrian;
 
 pub enum Reason {
     Terrian(Terrian),

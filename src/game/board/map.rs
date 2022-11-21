@@ -1,4 +1,6 @@
 pub mod tile;
+mod map_new;
+
 use tile::Tile;
 
 #[derive(Clone)]
