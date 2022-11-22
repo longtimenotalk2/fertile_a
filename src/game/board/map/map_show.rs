@@ -14,7 +14,8 @@ const BLUE: &str = "\u{1b}[34m";
 const RESET: &str = "\u{1b}[m";
 
 pub enum Content<'a> {
-    Default(&'a Pos),
+    Default,
+    AA(&'a Pos),
 }
 
 pub struct ShowStyle<'a> {
@@ -70,15 +71,19 @@ impl Map {
         }
     }
 
-    fn print_frame(&self) {
+    fn print_frame(&self, style : ShowStyle) {
         // col num
-        for c in 0..self.n_col {
-            print!("   {}", c);
+        if style.coordinate {
+            for c in 0..self.n_col {
+                print!("   {}", c);
+            }
+            print!("\n");
         }
-        print!("\n");
         
         // first line
-        print!(" "); // row num
+        if style.coordinate {
+            print!(" "); // row num
+        }
         print!("┌───");
         for _col in 0..self.n_col - 1 {
             print!("┬───");
@@ -87,7 +92,9 @@ impl Map {
         // others line
         for row in 0..self.n_row {
             //// 1line
-            print!("{}", row); // row num
+            if style.coordinate {
+                print!("{}", row); // row num
+            }
             // leftest block
             if row % 2 == 1 {
                 print!("  ");
@@ -102,7 +109,9 @@ impl Map {
             }
             print!("\n");
             //// 2line
-            print!(" "); // row num
+            if style.coordinate {
+                print!(" "); // row num
+            }
             if row < self.n_row - 1 {
                 if row % 2 == 0 {
                     print!("└");
@@ -132,7 +141,11 @@ impl Map {
     }
 
     pub fn show_default(&self) {
-        self.print_frame();
+        let style = ShowStyle {
+            content : Content::Default,
+            coordinate : true,
+        };
+        self.print_frame(style);
     }
 
 }
