@@ -1,4 +1,5 @@
 pub mod board;
+mod game_basic;
 
 use board::Board;
 

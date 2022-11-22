@@ -1,6 +1,9 @@
 pub mod game;
 pub mod common;
 
+use game::Game;
+
 fn main() {
-    println!("Hello, world!");
+    let mut mygame = Game::new();
+    mygame.show();
 }

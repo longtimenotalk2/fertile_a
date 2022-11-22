@@ -33,6 +33,10 @@ impl Tile {
         self.placement = placement;
     }
 
+    pub fn get_supply(&self) -> bool {
+        self.supply
+    }
+
 
 
 }

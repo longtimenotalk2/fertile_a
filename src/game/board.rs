@@ -1,4 +1,6 @@
 pub mod map;
+mod board_new;
+mod board_show;
 use map::Map;
 
 #[derive(Clone)]
