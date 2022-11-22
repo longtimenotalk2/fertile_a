@@ -10,7 +10,7 @@ impl Terrian {
         }
     }
 
-    pub(super) fn may_step(&self) -> Result<f64, Reason> {
+    pub fn mvcost(&self) -> Result<f64, Reason> {
         match self {
             Terrian::Plain => Ok(MVCOST_PLAIN),
             Terrian::Hill => Ok(MVCOST_HILL),
@@ -18,21 +18,21 @@ impl Terrian {
         }
     }
     
-    pub(super) fn may_found(&self) -> Result<(), Reason> {
+    pub fn may_found(&self) -> Result<(), Reason> {
         match self {
             Terrian::Sea => Err(Reason::ActOnWrongTerrian(Action::Found, Terrian::Sea)),
             _ => Ok(()),
         }
     }
 
-    pub(super) fn may_build(&self) -> Result<(), Reason> {
+    pub fn may_build(&self) -> Result<(), Reason> {
         match self {
             Terrian::Sea => Err(Reason::ActOnWrongTerrian(Action::Build, Terrian::Sea)),
             _ => Ok(()),
         }
     }
 
-    pub(super) fn may_sow(&self) -> Result<(), Reason> {
+    pub fn may_sow(&self) -> Result<(), Reason> {
         match self {
             Terrian::Sea => Err(Reason::ActOnWrongTerrian(Action::Sow, Terrian::Sea)),
             _ => Ok(()),

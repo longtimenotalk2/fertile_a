@@ -9,7 +9,7 @@ impl Manmade {
         }
     }
     
-    pub(super) fn get_max_process(&self) -> i64 {
+    pub fn get_max_process(&self) -> i64 {
         match self {
             Manmade::Hovel => PROCESS_HOVEL,
             Manmade::Sawmill => PROCESS_SAWMILL,

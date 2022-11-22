@@ -1,6 +1,5 @@
-use super::Placement;
-use super::Manmade;
-use crate::common::reason::Reason;
+use super::{Placement, Manmade, Natural};
+use crate::common::reason::{Action, Reason};
 
 impl Placement {
     pub fn str(&self) -> String {
@@ -20,11 +19,37 @@ impl Placement {
         }
     }
 
-    pub fn may_step(&self) -> Result<f64, Reason> {
+    pub fn mvcost(&self) -> Result<f64, Reason> {
         if let Placement::Landform(n) = self {
-            n.may_step()
+            n.mvcost()
         }else{
             Ok(0.)
+        }
+    }
+
+    pub fn may_found(&self) -> Result<(), Reason> {
+        match self {
+            Placement::Void => Ok(()),
+            Placement::Landform(natural) => match natural {
+                Natural::Tree => Err(Reason::ActOnWrongPlacement(Action::Found, self.clone())),
+                Natural::Farm => Ok(()),
+            }
+            other => Err(Reason::ActOnWrongPlacement(Action::Found, self.clone())),
+        }
+    }
+
+    pub fn may_sow(&self) -> Result<(), Reason> {
+        match self {
+            Placement::Void => Ok(()),
+            other => Err(Reason::ActOnWrongPlacement(Action::Sow, self.clone()))
+        }
+    }
+
+    pub fn may_build(&self) -> Result<(), Reason> {
+        if let Placement::Foundation(..) = self {
+            Ok(())
+        }else{
+            Err(Reason::ActOnWrongPlacement(Action::Build, self.clone()))
         }
     }
 

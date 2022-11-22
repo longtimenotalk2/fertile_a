@@ -9,7 +9,7 @@ impl Natural {
         }
     }
 
-    pub(super) fn may_step(&self) -> Result<f64, Reason> {
+    pub(super) fn mvcost(&self) -> Result<f64, Reason> {
         match self {
             Natural::Tree => Ok(MVCOST_TREE),
             _ => Ok(0.),
