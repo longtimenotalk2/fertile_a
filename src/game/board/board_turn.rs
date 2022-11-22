@@ -9,14 +9,14 @@ impl Board {
 
     fn end_turn(&mut self) {
         if self.turn % 4 == 0 {
-            self.sow_all();
+            self.map.sow_all();
         }
     }
 
     pub fn pass_cp(&mut self, cp: f64) {
         self.cp += cp;
-        while self.cp >= MAX_CP {
-            self.cp -= MAX_CP;
+        while self.cp >= CP_MAX {
+            self.cp -= CP_MAX;
             self.end_turn();
             self.start_turn();
         }
