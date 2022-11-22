@@ -26,7 +26,7 @@ impl Map {
             .set_placement(Placement::Building(manmade));
     }
 
-    pub fn new_std() -> Self {
+    pub fn new_example() -> Self {
         let mut m = Map::new(6, 8);
         m.manually_set_terrian(2, 2, Terrian::Sea);
         m.manually_set_terrian(0, 3, Terrian::Hill);

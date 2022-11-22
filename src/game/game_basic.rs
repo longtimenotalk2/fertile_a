@@ -14,7 +14,7 @@ impl Game {
 impl Game {
     pub fn new() -> Self {
         Game {
-            boards: vec![Board::new_std()],
+            boards: vec![Board::new_example()],
         }
     }
     pub fn show(&self) {
