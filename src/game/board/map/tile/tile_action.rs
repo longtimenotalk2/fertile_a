@@ -75,4 +75,12 @@ impl Tile {
         }
     }
 
+    pub fn may_sow(&self) -> Result<(), Reason> {
+        if let Placement::Building(Manmade::Hovel) = self.placement{
+            Ok(())
+        }else{
+            Err(Reason::ActOnWrongPlacement(Action::Sow, self.placement.clone()))
+        }
+    }
+
 }

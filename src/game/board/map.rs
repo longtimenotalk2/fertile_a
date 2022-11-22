@@ -5,6 +5,7 @@ mod map_new;
 mod map_show;
 mod map_find;
 mod map_action;
+mod map_global;
 
 
 use tile::Tile;

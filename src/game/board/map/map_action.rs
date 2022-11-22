@@ -61,4 +61,14 @@ impl Map {
         Ok(())
     }
 
+    pub fn can_sow(&self, pos : &Pos) -> Result<Pos, Reason> {
+        self.tile(pos).may_sow()?;
+        for p in self.find_adjs(pos) {
+            if let Placement::Void = self.tile(&p).get_placement() {
+                return Ok(p);
+            }
+        }
+        Err(Reason::ActNeedAdjPlacement(Action::Sow, Placement::Void))
+    }
+
 }

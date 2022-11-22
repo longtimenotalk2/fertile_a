@@ -52,3 +52,12 @@ impl King {
     }
 }
 
+impl Board {
+    pub fn king_mvcost(&self, dir: &Dir) -> Result<f64, Reason> {
+        self.map.mvcost(self.king.get_pos(), dir)
+    }
+
+    
+
+}
+

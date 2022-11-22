@@ -1,5 +1,5 @@
 use super::Map;
-use crate::common::incorporeal::{Pos, Dir};
+use crate::common::{entity::Placement, incorporeal::{Pos, Dir}};
 
 impl Map {
     pub fn valid(&self, pos: &Pos) -> bool {
@@ -82,6 +82,16 @@ impl Map {
         } else {
             vec![]
         }
+    }
+
+    pub fn find_placement(&self, placement : Placement) -> Vec<Pos> {
+        let mut list = vec!();
+        for pos in self.find_all() {
+            if let placement = self.tile(&pos).get_placement() {
+                list.push(pos);
+            }
+        }
+        list
     }
 
 }

@@ -7,7 +7,7 @@ pub struct Pos {
     c: i64,
 }
 
-#[derive(Eq, PartialEq, Hash)]
+#[derive(Eq, PartialEq, Hash, Debug)]
 pub enum Dir {
     R,
     DR,

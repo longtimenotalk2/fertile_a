@@ -4,3 +4,5 @@ pub const MVCOST_TREE: f64 = 2.;
 
 pub const PROCESS_HOVEL: i64 = 5;
 pub const PROCESS_SAWMILL: i64 = 5;
+
+pub const MAX_CP: f64 = 5.;
