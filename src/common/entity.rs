@@ -4,32 +4,32 @@ mod natural;
 mod manmade;
 mod resource;
 
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 pub enum Resource {
     Food,
     Wood,
 }
 
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 pub enum Terrian {
     Plain,
     Sea,
     Hill,
 }
 
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 pub enum Manmade {
     Hovel,
     Sawmill,
 }
 
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 pub enum Natural {
     Tree,
     Farm,
 }
 
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 pub enum Placement {
     Void,
     Landform(Natural),

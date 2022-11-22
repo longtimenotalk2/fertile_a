@@ -1,5 +1,5 @@
 use super::Tile;
-use crate::common::{reason::Reason, entity::*};
+use crate::common::{entity::*};
 
 impl Tile {
     pub fn new() -> Self {

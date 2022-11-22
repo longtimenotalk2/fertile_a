@@ -1,5 +1,6 @@
 use crate::common::entity::*;
 
+#[derive(Debug)]
 pub enum Action {
     Move,
     Found,
@@ -9,9 +10,13 @@ pub enum Action {
     Saw,
 }
 
+#[derive(Debug)]
 pub enum Reason {
     ActOnWrongTerrian(Action, Terrian),
     ActOnWrongPlacement(Action, Placement),
-    Consumed,
+    ActConsumed(Action, Resource),
+    ActAdjConsumed(Action, Resource),
     LackInventory(Resource),
+    OutOfBoundary,
+    ActNeedAdjPlacement(Action, Placement),
 }

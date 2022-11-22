@@ -12,7 +12,7 @@ impl Tile {
         )
     }
 
-    pub(in super::super) fn found(&mut self, manmade: Manmade) -> Result<(), Reason> {
+    pub fn found(&mut self, manmade: Manmade) -> Result<(), Reason> {
         self.can_found()?;
         self.placement = Placement::Foundation(manmade, 0);
         Ok(())
@@ -24,7 +24,7 @@ impl Tile {
         )
     }
 
-    pub(in super::super) fn sow(&mut self) -> Result<(), Reason> {
+    pub fn sow(&mut self) -> Result<(), Reason> {
         self.can_sow()?;
         self.placement = Placement::Landform(Natural::Farm);
         Ok(())
@@ -34,7 +34,7 @@ impl Tile {
         self.terrian.may_build().and(self.placement.may_build())
     }
 
-    pub(in super::super) fn build(&mut self) -> Result<bool, Reason> {
+    pub fn build(&mut self) -> Result<bool, Reason> {
         self.can_build()?;
         if let Placement::Foundation(m, p) = &self.placement {
             if p + 1 == m.get_max_process() {
@@ -54,14 +54,14 @@ impl Tile {
             if self.supply {
                 Ok(r)
             }else{
-                Err(Reason::Consumed)
+                Err(Reason::ActConsumed(Action::Pick, r))
             }
         }else{
             Err(Reason::ActOnWrongPlacement(Action::Pick, self.placement.clone()))
         }
     }
 
-    pub(in super::super) fn pick(&mut self) -> Result<Resource, Reason> {
+    pub fn pick(&mut self) -> Result<Resource, Reason> {
         let r = self.can_pick()?;
         self.supply = false;
         Ok(r)

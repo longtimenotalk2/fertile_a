@@ -1,6 +1,6 @@
 mod tile_basic;
 mod tile_action;
-use crate::common::entity::{Resource, Terrian, Placement};
+use crate::common::entity::{Terrian, Placement};
 
 #[derive(Clone)]
 pub struct Tile {
