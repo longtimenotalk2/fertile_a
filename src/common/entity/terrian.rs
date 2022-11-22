@@ -1,5 +1,5 @@
 use super::Terrian;
-use crate::common::{reason::Reason, constant::*};
+use crate::common::{reason::{Action, Reason}, constant::*};
 
 impl Terrian {
     pub fn str(&self) -> String {
@@ -10,13 +10,32 @@ impl Terrian {
         }
     }
 
-    pub(super) fn mvcost(&self) -> Result<f64, Reason> {
+    pub(super) fn may_step(&self) -> Result<f64, Reason> {
         match self {
             Terrian::Plain => Ok(MVCOST_PLAIN),
             Terrian::Hill => Ok(MVCOST_HILL),
-            Terrian::Sea => Err(Reason::Terrian(Terrian::Sea)),
+            Terrian::Sea => Err(Reason::ActOnWrongTerrian(Action::Move, Terrian::Sea)),
+        }
+    }
+    
+    pub(super) fn may_found(&self) -> Result<(), Reason> {
+        match self {
+            Terrian::Sea => Err(Reason::ActOnWrongTerrian(Action::Found, Terrian::Sea)),
+            _ => Ok(()),
         }
     }
 
-    
+    pub(super) fn may_build(&self) -> Result<(), Reason> {
+        match self {
+            Terrian::Sea => Err(Reason::ActOnWrongTerrian(Action::Build, Terrian::Sea)),
+            _ => Ok(()),
+        }
+    }
+
+    pub(super) fn may_sow(&self) -> Result<(), Reason> {
+        match self {
+            Terrian::Sea => Err(Reason::ActOnWrongTerrian(Action::Sow, Terrian::Sea)),
+            _ => Ok(()),
+        }
+    }
 }

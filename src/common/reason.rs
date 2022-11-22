@@ -1,5 +1,12 @@
 use crate::common::entity::*;
 
+pub enum Action {
+    Move,
+    Found,
+    Build,
+    Sow,
+}
+
 pub enum Reason {
-    Terrian(Terrian),
+    ActOnWrongTerrian(Action, Terrian),
 }
