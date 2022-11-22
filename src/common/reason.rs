@@ -13,4 +13,5 @@ pub enum Reason {
     ActOnWrongTerrian(Action, Terrian),
     ActOnWrongPlacement(Action, Placement),
     Consumed,
+    LackInventory(Resource),
 }

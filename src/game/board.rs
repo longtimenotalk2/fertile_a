@@ -1,6 +1,8 @@
 pub mod map;
 mod board_new;
 mod board_show;
+mod board_king;
+
 use map::Map;
 
 #[derive(Clone)]
