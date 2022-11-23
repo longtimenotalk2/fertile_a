@@ -1,5 +1,5 @@
 use super::Board;
-use crate::common::{reason::Reason, incorporeal::*, entity::*, constant::*};
+use crate::common::{reason::*, incorporeal::*, entity::*, constant::*};
 
 #[derive(Clone)]
 pub(super) struct King {
@@ -29,21 +29,21 @@ impl King {
         self.wood
     }
 
-    fn use_food(&mut self) -> Result<(), Reason> {
+    fn use_food(&mut self) -> bool {
         if self.food > 0 {
             self.food -= 1;
-            Ok(())
+            true
         } else {
-            Err(Reason::LackInventory(Resource::Food))
+            false
         }
     }
 
-    fn use_wood(&mut self) -> Result<(), Reason> {
+    fn use_wood(&mut self) -> bool {
         if self.wood > 0 {
             self.wood -= 1;
-            Ok(())
+            true
         } else {
-            Err(Reason::LackInventory(Resource::Wood))
+            false
         }
     }
 
@@ -106,17 +106,17 @@ impl Board {
             if self.king.get_food() > 0 {
                 Ok(())
             }else{
-                Err(Reason::LackInventory(Resource::Food))
+                Err(Reason::ActLackInventory(Action::Build, Resource::Food))
             }
         } else {
-            Err(Reason::LackInventory(Resource::Wood))
+            Err(Reason::ActLackInventory(Action::Build, Resource::Wood))
         }
     }
 
     pub fn king_build(&mut self) -> Result<bool, Reason> {
         self.king_can_build()?;
-        self.king.use_food().unwrap();
-        self.king.use_wood().unwrap();
+        assert!(self.king.use_food());
+        assert!(self.king.use_wood());
         let result = self.map.build(&self.king.get_pos()).unwrap();
         self.pass_cp(CP_BASE);
         Ok(result)
@@ -127,14 +127,14 @@ impl Board {
         if self.king.get_food() > 0 {
             Ok(())
         }else{
-            Err(Reason::LackInventory(Resource::Food))
+            Err(Reason::ActLackInventory(Action::Saw, Resource::Food))
         }
     }
 
     pub fn king_saw(&mut self) -> Result<(), Reason> {
         self.king_can_saw()?;
         self.map.saw(self.king.get_pos()).unwrap();
-        self.king.use_food().unwrap();
+        assert!(self.king.use_food());
         self.king.wood += 1;
         Ok(())
     }

@@ -4,7 +4,7 @@ use crate::common::{reason::*, incorporeal::*, entity::*};
 impl Map {
     pub fn mvcost(&self, pos: &Pos, dir: &Dir) -> Result<f64, Reason> {
         match self.find_dir(pos, dir) {
-            None => Err(Reason::OutOfBoundary),
+            None => Err(Reason::ActOutOfBoundary(Action::Move)),
             Some(p) => self.tile(&p).mvcost(),
         }
     }
