@@ -2,7 +2,7 @@ pub mod tile;
 
 mod map_basic;
 mod map_new;
-mod map_show;
+pub mod map_show;
 mod map_find;
 mod map_action;
 mod map_global;

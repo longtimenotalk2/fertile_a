@@ -48,4 +48,12 @@ impl Tile {
             None
         }
     }
+
+    pub fn get_process(&self) -> Option<i64> {
+        if let Placement::Foundation(_, p) = &self.placement {
+            Some(*p)
+        } else {
+            None
+        }
+    }
 }

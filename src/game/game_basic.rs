@@ -18,6 +18,6 @@ impl Game {
         }
     }
     pub fn show(&self) {
-        self.board().show_map_only();
+        self.board().show_map_with_king();
     }
 }

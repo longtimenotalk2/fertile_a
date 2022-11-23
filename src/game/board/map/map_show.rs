@@ -21,10 +21,35 @@ pub enum Content<'a> {
 pub struct ShowStyle<'a> {
     content : Content<'a>,
     coordinate : bool,
+    king : Option<&'a Pos>
 }
 
 impl Map {
-    fn print_tile(&self, pos: &Pos) {
+    fn print_middle(&self, pos: &Pos, style : &ShowStyle) {
+        match style.content {
+            Content::Default => {
+                let tile = self.tile(pos);
+                let mut is_king = false;
+                if let Some(king_pos) = style.king {
+                    is_king = pos.eq(king_pos);
+                }
+                if is_king {
+                    match tile.get_process() {
+                        Some(process) => print!("{}", process),
+                        None => print!("@"),
+                    }
+                }else{
+                    match tile.get_process() {
+                        Some(process) => print!("{}{}{}", RED, process, RESET),
+                        None => print!(" "),
+                    }
+                }
+            },
+            _ => print!(" "),
+        }
+    }
+    
+    fn print_tile(&self, pos: &Pos, style : &ShowStyle) {
         let tile = self.tile(&pos);
         match tile.get_terrian() {
             Terrian::Sea => print!("{}Sea{}", BLUE, RESET),
@@ -36,7 +61,7 @@ impl Map {
                     Terrian::Hill => print!("H"),
                 }
                 // Middle
-                print!(" ");
+                self.print_middle(pos, style);
                 //Right
                 match tile.get_placement() {
                     Placement::Void => print!(" "),
@@ -69,7 +94,7 @@ impl Map {
         }
     }
 
-    fn print_frame(&self, style : ShowStyle) {
+    fn print_frame(&self, style : &ShowStyle) {
         // col num
         if style.coordinate {
             for c in 0..self.n_col {
@@ -102,7 +127,7 @@ impl Map {
             for col in 0..self.n_col {
                 let pos = Pos::new(row, col);
                 // TILE BLOCK
-                self.print_tile(&pos);
+                self.print_tile(&pos, &style);
                 print!("│");
             }
             print!("\n");
@@ -138,13 +163,26 @@ impl Map {
         print!("\n");
     }
 
-    pub fn show_default(&self) {
-        let style = ShowStyle {
-            content : Content::Default,
-            coordinate : true,
-        };
+    fn show(&self, style : &ShowStyle) {
         self.print_frame(style);
     }
 
+    pub fn show_map_only(&self) {
+        let style = ShowStyle {
+            content : Content::Default,
+            coordinate : true,
+            king : None,
+        };
+        self.show(&style);
+    }
+    
+    pub fn show_map_with_king(&self, king_pos : &Pos) {
+        let style = ShowStyle {
+            content : Content::Default,
+            coordinate : true,
+            king : Some(king_pos),
+        };
+        self.show(&style);
+    }
 }
 
