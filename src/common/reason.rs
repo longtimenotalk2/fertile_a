@@ -14,13 +14,13 @@ pub enum Action {
 impl Action {
     fn str(&self) -> &str {
         match self {
-            Move => "move",
-            Found => "found",
-            Build => "build",
-            Sow => "sow",
-            Pick => "pick",
-            Saw => "saw",
-            Work => "work",
+            Action::Move => "move",
+            Action::Found => "found",
+            Action::Build => "build",
+            Action::Sow => "sow",
+            Action::Pick => "pick",
+            Action::Saw => "saw",
+            Action::Work => "work",
         }
     }
 }

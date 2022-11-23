@@ -7,7 +7,7 @@ impl Placement {
             Placement::Void => "Nothing".to_string(),
             Placement::Landform(n) => format!("{} as Landform", n.str()),
             Placement::Building(m) => format!("{} as Building", m.str()),
-            Placement::Foundation(m, p) => format!("{} as Foundation", m.str()),
+            Placement::Foundation(m, _) => format!("{} as Foundation", m.str()),
         }
     }
 
@@ -34,14 +34,14 @@ impl Placement {
                 Natural::Tree => Err(Reason::ActOnWrongPlacement(Action::Found, self.clone())),
                 Natural::Farm => Ok(()),
             }
-            other => Err(Reason::ActOnWrongPlacement(Action::Found, self.clone())),
+            _ => Err(Reason::ActOnWrongPlacement(Action::Found, self.clone())),
         }
     }
 
     pub fn may_sow(&self) -> Result<(), Reason> {
         match self {
             Placement::Void => Ok(()),
-            other => Err(Reason::ActOnWrongPlacement(Action::Sow, self.clone()))
+            _ => Err(Reason::ActOnWrongPlacement(Action::Sow, self.clone()))
         }
     }
 

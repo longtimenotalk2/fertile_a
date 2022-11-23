@@ -87,7 +87,7 @@ impl Map {
     pub fn find_placement(&self, placement : Placement) -> Vec<Pos> {
         let mut list = vec!();
         for pos in self.find_all() {
-            if let placement = self.tile(&pos).get_placement() {
+            if self.tile(&pos).get_placement() == &placement {
                 list.push(pos);
             }
         }

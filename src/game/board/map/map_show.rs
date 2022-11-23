@@ -85,7 +85,7 @@ impl Map {
                         Manmade::Hovel => print!("h"),
                         Manmade::Sawmill => print!("s"),
                     },
-                    Placement::Foundation(m, process) => match m {
+                    Placement::Foundation(m, _) => match m {
                         Manmade::Hovel => print!("{}h{}", RED, RESET),
                         Manmade::Sawmill => print!("{}s{}", RED, RESET),
                     },
