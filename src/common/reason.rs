@@ -8,6 +8,7 @@ pub enum Action {
     Sow,
     Pick,
     Saw,
+    Work,
 }
 
 impl Action {
@@ -19,6 +20,7 @@ impl Action {
             Sow => "sow",
             Pick => "pick",
             Saw => "saw",
+            Work => "work",
         }
     }
 }
