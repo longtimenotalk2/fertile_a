@@ -60,15 +60,27 @@ impl Map {
         self.tile_mut(&p).pick().map(|_| ()).unwrap();
         Ok(())
     }
+    
+    pub fn can_sow(&self, pos : &Pos) -> Result<(), Reason> {
+        self.tile(pos).can_sow()
+    }
 
-    pub fn can_sow(&self, pos : &Pos) -> Result<Pos, Reason> {
-        self.tile(pos).may_sow()?;
+    pub fn sow(&mut self, pos : &Pos) -> Result<(), Reason> {
+        self.tile_mut(pos).sow()
+    }
+
+    pub fn can_give_sow(&self, pos : &Pos) -> Result<Pos, Reason> {
         for p in self.find_adjs(pos) {
-            if let Placement::Void = self.tile(&p).get_placement() {
+            if let Ok(_) = self.can_sow(&p) {
                 return Ok(p);
             }
         }
         Err(Reason::ActNeedAdjPlacement(Action::Sow, Placement::Void))
+    }
+
+    pub fn give_sow(&mut self, pos : &Pos) -> Result<(), Reason> { 
+        let target = self.can_give_sow(pos)?;
+        self.sow(&target)
     }
 
 }

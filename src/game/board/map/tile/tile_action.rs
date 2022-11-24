@@ -18,18 +18,6 @@ impl Tile {
         Ok(())
     }
 
-    pub fn can_sow(&self) -> Result<(), Reason> {
-        self.terrian.may_sow().and(
-            self.placement.may_sow()
-        )
-    }
-
-    pub fn sow(&mut self) -> Result<(), Reason> {
-        self.can_sow()?;
-        self.placement = Placement::Landform(Natural::Farm);
-        Ok(())
-    }
-
     pub fn can_build(&self) -> Result<(), Reason> {
         self.terrian.may_build().and(self.placement.may_build())
     }
@@ -75,12 +63,28 @@ impl Tile {
         }
     }
 
-    pub fn may_sow(&self) -> Result<(), Reason> {
-        if let Placement::Building(Manmade::Hovel) = self.placement{
-            Ok(())
-        }else{
-            Err(Reason::ActOnWrongPlacement(Action::Sow, self.placement.clone()))
+    // pub fn may_sow(&self) -> Result<(), Reason> {
+    //     if let Placement::Building(Manmade::Hovel) = self.placement{
+    //         Ok(())
+    //     }else{
+    //         Err(Reason::ActOnWrongPlacement(Action::Sow, self.placement.clone()))
+    //     }
+    // }
+
+    pub fn can_sow(&self) -> Result<(), Reason> {
+        match self.terrian {
+            Terrian::Sea => Err(Reason::ActOnWrongTerrian(Action::Sow, Terrian::Sea)),
+            _ => match self.placement {
+                Placement::Void => Ok(()),
+                _ => Err(Reason::ActOnWrongPlacement(Action::Sow, self.placement.clone())),
+            }
         }
+    }
+
+    pub fn sow(&mut self) -> Result<(), Reason> {
+        self.can_sow()?;
+        self.set_placement(Placement::Landform(Natural::Farm));
+        Ok(())
     }
 
 }

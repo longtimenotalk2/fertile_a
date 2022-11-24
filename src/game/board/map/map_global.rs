@@ -10,7 +10,7 @@ impl Map {
 
     pub fn sow_all(&mut self) {
         for pos in self.find_placement(Placement::Building(Manmade::Hovel)) {
-            if let Ok(_) = self.tile_mut(&pos).sow() {
+            if let Ok(_) = self.give_sow(&pos) {
                 ()
             }else{
                 ()
