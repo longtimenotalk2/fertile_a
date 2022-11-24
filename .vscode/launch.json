@@ -4,15 +4,15 @@
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug executable 'FertileA'",
+            "name": "Debug executable 'fertile_a'",
             "cargo": {
                 "args": [
                     "build",
-                    "--bin=FertileA",
-                    "--package=FertileA"
+                    "--bin=fertile_a",
+                    "--package=fertile_a"
                 ],
                 "filter": {
-                    "name": "FertileA",
+                    "name": "fertile_a",
                     "kind": "bin"
                 }
             },
@@ -22,16 +22,16 @@
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug unit tests in executable 'FertileA'",
+            "name": "Debug unit tests in executable 'fertile_a'",
             "cargo": {
                 "args": [
                     "test",
                     "--no-run",
-                    "--bin=FertileA",
-                    "--package=FertileA"
+                    "--bin=fertile_a",
+                    "--package=fertile_a"
                 ],
                 "filter": {
-                    "name": "FertileA",
+                    "name": "fertile_a",
                     "kind": "bin"
                 }
             },
