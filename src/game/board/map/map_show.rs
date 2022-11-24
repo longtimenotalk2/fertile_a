@@ -21,28 +21,45 @@ pub enum Content<'a> {
 pub struct ShowStyle<'a> {
     content : Content<'a>,
     coordinate : bool,
-    king : Option<&'a Pos>
+    king : Option<&'a Pos>,
+    power : bool,
 }
 
 impl Map {
     fn print_middle(&self, pos: &Pos, style : &ShowStyle) {
         match style.content {
             Content::Default => {
-                let tile = self.tile(pos);
+                let mut char = " ".to_string();
+                let mut use_color = true;
+                let mut color = "".to_string();
                 let mut is_king = false;
                 if let Some(king_pos) = style.king {
                     is_king = pos.eq(king_pos);
                 }
+
+                let tile = self.tile(pos);
+                //king
                 if is_king {
-                    match tile.get_process() {
-                        Some(process) => print!("{}", process),
-                        None => print!("@"),
+                    char = "@".to_string();
+                    use_color = false;
+                }
+                //process
+                if let Some(process) = tile.get_process() {
+                    char = format!("{}", process);
+                    color = RED.to_string();
+                }
+                //power
+                if style.power {
+                    if let Some(power) = self.get_power(pos) {
+                        char = format!("{}", power);
+                        color = YELLOW.to_string();
                     }
+                }
+
+                if use_color {
+                    print!("{}{}{}", color, char, RESET);
                 }else{
-                    match tile.get_process() {
-                        Some(process) => print!("{}{}{}", RED, process, RESET),
-                        None => print!(" "),
-                    }
+                    print!("{}", char);
                 }
             },
             _ => print!(" "),
@@ -172,6 +189,7 @@ impl Map {
             content : Content::Default,
             coordinate : true,
             king : None,
+            power : true,
         };
         self.show(&style);
     }
@@ -181,6 +199,7 @@ impl Map {
             content : Content::Default,
             coordinate : true,
             king : Some(king_pos),
+            power : true,
         };
         self.show(&style);
     }
