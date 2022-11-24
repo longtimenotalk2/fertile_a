@@ -17,6 +17,7 @@ impl Game {
             "e" => self.cmd_end(),
             "u" => self.cmd_undo(),
             "p" => self.cmd_work(),
+            "o" => self.cmd_sow(),
             _ => {
                 if let Some(num) = cmd.strip_prefix("e").and_then(|s| s.parse::<i64>().ok()) {
                     for _ in 0..num {

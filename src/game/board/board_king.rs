@@ -115,9 +115,11 @@ impl Board {
 
     pub fn king_build(&mut self) -> Result<bool, Reason> {
         self.king_can_build()?;
+        //build
         assert!(self.king.use_food());
         assert!(self.king.use_wood());
         let result = self.map.build(&self.king.get_pos()).unwrap();
+        //passcp
         self.pass_cp(CP_BASE);
         Ok(result)
     }
@@ -133,9 +135,25 @@ impl Board {
 
     pub fn king_saw(&mut self) -> Result<(), Reason> {
         self.king_can_saw()?;
+        //saw
         self.map.saw(self.king.get_pos()).unwrap();
         assert!(self.king.use_food());
         self.king.wood += 1;
+        //passcp
+        self.pass_cp(CP_BASE);
+        Ok(())
+    }
+
+    pub fn king_can_sow(&self) -> Result<(), Reason> {
+        self.map.can_sow(self.king.get_pos())
+    }
+
+    pub fn king_sow(&mut self) -> Result<(), Reason> {
+        self.king_can_sow()?;
+        //sow
+        self.map.sow(self.king.get_pos()).unwrap();
+        //passcp
+        self.pass_cp(PROCESS_FARM as f64);
         Ok(())
     }
 
