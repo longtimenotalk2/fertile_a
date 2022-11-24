@@ -1,5 +1,5 @@
 use super::Tile;
-use crate::common::{reason::{Action, Reason}, entity::*};
+use crate::common::{reason::{Action, Reason}, entity::*, constant::{RUIN_FOUNDATION, RUIN_BUILDING, RUIN_TREE, RUIN_FARM}};
 
 impl Tile {
     pub fn mvcost(&self) -> Result<f64, Reason> {
@@ -63,14 +63,6 @@ impl Tile {
         }
     }
 
-    // pub fn may_sow(&self) -> Result<(), Reason> {
-    //     if let Placement::Building(Manmade::Hovel) = self.placement{
-    //         Ok(())
-    //     }else{
-    //         Err(Reason::ActOnWrongPlacement(Action::Sow, self.placement.clone()))
-    //     }
-    // }
-
     pub fn can_sow(&self) -> Result<(), Reason> {
         match self.terrian {
             Terrian::Sea => Err(Reason::ActOnWrongTerrian(Action::Sow, Terrian::Sea)),
@@ -85,6 +77,27 @@ impl Tile {
         self.can_sow()?;
         self.set_placement(Placement::Landform(Natural::Farm));
         Ok(())
+    }
+
+    pub fn can_ruin(&self) -> Result<i64, Reason> {
+        match self.terrian {
+            Terrian::Sea => Err(Reason::ActOnWrongTerrian(Action::Ruin, Terrian::Sea)),
+            _ => match &self.placement {
+                Placement::Foundation(..) => Ok(RUIN_FOUNDATION),
+                Placement::Building(..) => Ok(RUIN_BUILDING),
+                Placement::Landform(n) => match n {
+                    Natural::Tree => Ok(RUIN_TREE),
+                    Natural::Farm => Ok(RUIN_FARM),
+                }
+                _ => Err(Reason::ActOnWrongPlacement(Action::Ruin, self.placement.clone()))
+            }
+        }
+    }
+
+    pub fn ruin(&mut self) -> Result<i64, Reason> {
+        let p = self.can_ruin()?;
+        self.placement = Placement::Void;
+        Ok(p)
     }
 
 }

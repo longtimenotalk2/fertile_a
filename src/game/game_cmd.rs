@@ -102,6 +102,16 @@ impl Game {
         self.show();
     }
 
+    pub(super) fn cmd_ruin(&mut self) {
+        if let Err(reason) = self.board().king_can_ruin(){
+            refuse(&reason.str());
+            return;
+        }
+        self.update();
+        self.board_mut().king_ruin().unwrap();
+        self.show();
+    }
+
     pub(super) fn cmd_work(&mut self) {
         if let Err(Reason::ActOnWrongPlacement(..)) = self.board().king_can_pick() {
             if let Err(Reason::ActOnWrongPlacement(..)) = self.board().king_can_saw() {

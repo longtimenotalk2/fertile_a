@@ -157,5 +157,18 @@ impl Board {
         Ok(())
     }
 
+    pub fn king_can_ruin(&self) -> Result<i64, Reason> {
+        self.map.can_ruin(self.king.get_pos())
+    }
+
+    pub fn king_ruin(&mut self) -> Result<(), Reason> {
+        let p = self.king_can_ruin()?;
+        // ruin
+        self.map.ruin(self.king.get_pos()).unwrap();
+        // passcp
+        self.pass_cp(p as f64);
+        Ok(())
+    }
+
 }
 

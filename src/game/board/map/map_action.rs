@@ -83,4 +83,12 @@ impl Map {
         self.sow(&target)
     }
 
+    pub fn can_ruin(&self, pos : &Pos) -> Result<i64, Reason>  {
+        self.tile(pos).can_ruin()
+    }
+
+    pub fn ruin(&mut self, pos : &Pos) -> Result<i64, Reason> {
+        self.tile_mut(pos).ruin()
+    }
+
 }
