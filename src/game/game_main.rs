@@ -2,7 +2,7 @@ use super::Game;
 use std::io;
 
 impl Game {
-    fn main_loop(&mut self) {
+    pub fn main_loop(&mut self) {
         loop {
             let mut cmd = String::new();
             io::stdin().read_line(&mut cmd).expect("fail to read line");
